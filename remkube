@@ -2,10 +2,10 @@
 
 # Title           : remkube
 # Description     : Remove a kubernetes cluster config from ~/.kube/config
-# Author		      : Burke Azbill
+# Author          : Burke Azbill
 # Date            : 2022-05-02
 # Version         : 1.0    
-# Usage		        : remkube [CLUSTERNAME]
+# Usage           : remkube [CLUSTERNAME]
 # Notes           : Requires kubectl to already be installed
 # Source          : https://github.com/burkeazbill/MergekubeRemKube
 #==============================================================================

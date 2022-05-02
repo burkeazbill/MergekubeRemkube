@@ -2,10 +2,10 @@
 
 # Title           : mergekube
 # Description     : Merge a kubeconfig file into ~/.kube/config
-# Author		      : Burke Azbill
+# Author          : Burke Azbill
 # Date            : 2022-05-02
 # Version         : 1.0    
-# Usage		        : mergekube [/path/to/kubeconfig/to/merge]
+# Usage           : mergekube [/path/to/kubeconfig/to/merge]
 # Notes           : Requires kubectl to already be installed
 # Source          : https://github.com/burkeazbill/MergekubeRemKube
 #==============================================================================
