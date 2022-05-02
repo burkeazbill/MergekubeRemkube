@@ -6,7 +6,7 @@ git clone https://github.com/burkeazbill/MergekubeRemkube.git
 chmod +x MergekubeRemkube/mergekube
 chmod +x MergekubeRemkube/remkube
 
-cp MergekubeRemkube/{mergekube,remkube} $INSTALL_PATH
+sudo cp MergekubeRemkube/{mergekube,remkube} $INSTALL_PATH
 # Now run each to confirm they are installed:
-megekube
+mergekube
 remkube
