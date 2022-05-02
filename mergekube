@@ -1,0 +1,45 @@
+#!env bash
+
+# Title           : mergekube
+# Description     : Merge a kubeconfig file into ~/.kube/config
+# Author		      : Burke Azbill
+# Date            : 2022-05-02
+# Version         : 1.0    
+# Usage		        : mergekube [/path/to/kubeconfig/to/merge]
+# Notes           : Requires kubectl to already be installed
+# Source          : https://github.com/burkeazbill/MergekubeRemKube
+#==============================================================================
+
+# Set Colors (To learn more about colors, visit: https://misc.flogisoft.com/bash/tip_colors_and_formatting )
+RED="\e[38;5;9m"
+BLUE="\e[38;5;45m"
+GREEN="\e[38;5;82m"
+CLEAR="\033[0m"
+
+if ! command -v kubectl &> /dev/null
+then
+  echo -e "$RED kubectl not found! Please install kubectl before using this script. ${CLEAR}"
+  exit 127
+fi
+
+if [ -n "$1" ]; then
+  export timestamp=$(date +"%s")
+  export MERGEFILE=$1
+  mkdir -p $HOME/.kube
+  echo -e "Before Merge:${BLUE}"
+  kubectl config get-contexts
+  c_count=`kubectl config get-contexts | wc -l`
+  if [ $c_count -lt 2 ]; then
+	cp $MERGEFILE $HOME/.kube/config
+  else
+  	mv $HOME/.kube/config $HOME/.kube/config-$timestamp.bak
+  	KUBECONFIG=$HOME/.kube/config-$timestamp.bak:$MERGEFILE kubectl config view --merge --flatten > $HOME/.kube/config
+  fi
+  echo -e "${CLEAR}After Merge: ${GREEN}"
+  kubectl config get-contexts
+  echo -e "${CLEAR}"
+else
+  echo -e "${BLUE}This script requires a single parameter: the full path to your new cluster kubeconfig file to merge into your defaul kubeconfig (~/.kube/config)${CLEAR}"
+  echo -e "${RED}Usage:${BLUE} $0 <path-to-kubeconfig-to-merge>${CLEAR}"
+  echo -e "${RED}IE:${BLUE} $0 $HOME/Downloads/new-kubeconfig.yaml${CLEAR}"
+fi

@@ -1,0 +1,44 @@
+#!env bash
+
+# Title           : remkube
+# Description     : Remove a kubernetes cluster config from ~/.kube/config
+# Author		      : Burke Azbill
+# Date            : 2022-05-02
+# Version         : 1.0    
+# Usage		        : remkube [CLUSTERNAME]
+# Notes           : Requires kubectl to already be installed
+# Source          : https://github.com/burkeazbill/MergekubeRemKube
+#==============================================================================
+
+# Set Colors (To learn more about colors, visit: https://misc.flogisoft.com/bash/tip_colors_and_formatting )
+RED="\e[38;5;9m"
+BLUE="\e[38;5;45m"
+GREEN="\e[38;5;82m"
+CLEAR="\033[0m"
+
+if ! command -v kubectl &> /dev/null
+then
+  echo -e "$RED kubectl not found! Please install kubectl before using this script. ${CLEAR}"
+  exit 127
+fi
+
+if [ -n "$1" ]; then
+  export timestamp=$(date +"%Y-%m-%d-%T")
+  echo -e "Before Removal:${BLUE}"
+  mkdir -p $HOME/.kube
+  kubectl config get-contexts
+  echo -e "${CLEAR}"
+  export cluster_name=$1
+  cp ~/.kube/config ~/.kube/config-$timestamp.bak
+  kubectl config unset clusters.$cluster_name
+  kubectl config unset contexts.$cluster_name-admin@$cluster_name
+  kubectl config unset contexts.$cluster_name
+  kubectl config unset users.$cluster_name-admin
+  kubectl config unset users.$cluster_name
+  echo -e "After Removal:${GREEN}"
+  kubectl config get-contexts
+else
+  echo -e "${BLUE}This script requires a single parameter: the name of the cluster to remove from your kubeconfig (~/.kube/config)${CLEAR}"
+  echo -e "${RED}Usage:${BLUE} <remkube cluster_name_to_remove>${CLEAR}"
+  echo -e "${RED}IE:${BLUE} remkube tmc-lab-02 ${CLEAR}"
+fi
