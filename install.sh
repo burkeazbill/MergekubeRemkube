@@ -2,11 +2,14 @@
 
 INSTALL_PATH="/usr/local/bin"
 mkdir -p $INSTALL_PATH
-git clone https://github.com/burkeazbill/MergekubeRemkube.git
-chmod +x MergekubeRemkube/mergekube
-chmod +x MergekubeRemkube/remkube
+if [ ! -d "MergekubeRemkube" ]; then
+  git clone https://github.com/burkeazbill/MergekubeRemkube.git
+fi
+cd MergekubeRemkube
+git pull
+chmod +x mergekube remkube
 
-sudo cp MergekubeRemkube/{mergekube,remkube} $INSTALL_PATH
+sudo cp {mergekube,remkube} $INSTALL_PATH
 # Now run each to confirm they are installed:
 mergekube
 remkube
