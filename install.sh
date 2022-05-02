@@ -8,8 +8,8 @@ fi
 cd MergekubeRemkube
 git pull
 chmod +x mergekube remkube
-
 sudo cp {mergekube,remkube} $INSTALL_PATH
-# Now run each to confirm they are installed:
-mergekube
-remkube
+cd ..
+# Now confirm they are installed:
+which mergekube
+which remkube
