@@ -1,3 +1,5 @@
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A5HOQVZ)
+
 # mergekube & remkube
 
 A pair of helpful scripts to merge and remove kubeconfig files. The syntax for merging kubeconfig files can be a bit challenging to remember. And for removing a cluster from a kubeconfig - oh boy! That's multiple commands to get it right. I wrote these two bash scripts a few years ago to make these two tasks easier for myself and others.
